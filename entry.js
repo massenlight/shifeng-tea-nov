@@ -1,4 +1,12 @@
 // Only enable payment after the company's checkout reports it can accept orders.
+const videoLink=document.querySelector('.video a');
+videoLink?.addEventListener('click',e=>{
+ if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
+ e.preventDefault();const frame=document.createElement('iframe');
+ frame.title='Threads 情報交流茶會';frame.src='https://www.youtube-nocookie.com/embed/PdFuuzz1oNo?autoplay=1';
+ frame.allow='autoplay; encrypted-media; picture-in-picture';frame.allowFullscreen=true;
+ videoLink.before(frame);videoLink.textContent='在 YouTube 觀看';videoLink.focus();
+},{once:true});
 const origin='https://massenlighten-platform.massenlighten-company.workers.dev';
 fetch(origin+'/api/nov-tea/availability',{credentials:'omit',cache:'no-store',signal:AbortSignal.timeout(6000)})
  .then(async response=>{if(!response.ok)return;const data=await response.json();const status=document.querySelector('#status'),join=document.querySelector('#join');
