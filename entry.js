@@ -1,4 +1,7 @@
-// Only enable payment after the company's checkout reports it can accept orders.
+// Registration links go straight to the company's first-party LINE session.
+if(location.protocol==='https:'&&new URLSearchParams(location.search).get('view')!=='intro'){
+ location.replace('https://massenlighten-platform.massenlighten-company.workers.dev/events/nov-tea/checkout');
+}
 const videoLink=document.querySelector('.video a');
 videoLink?.addEventListener('click',e=>{
  if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
@@ -17,5 +20,5 @@ fetch(origin+'/api/nov-tea/availability',{credentials:'omit',cache:'no-store',si
  }
  if(data.status==='open'||data.status==='full'||data.status==='ended'){
  join.href=origin+'/events/nov-tea/checkout';join.textContent=data.status==='open'?'用 LINE 登入報名':'查詢我的報名';
- status.textContent=data.status==='open'?'使用原本的 LINE 帳號即可，不用重填學員資料。':data.status==='full'?'本入口名額已滿。':'本場報名已截止。';
+ status.textContent=data.status==='open'?'已有的參加人姓名和手機會自動帶入。':data.status==='full'?'本入口名額已滿。':'本場報名已截止。';
  }}).catch(()=>{});
